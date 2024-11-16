@@ -26,8 +26,4 @@ mongoose.connect(MONGOURL).then(()=>{
 }).catch((error) =>{console.log(error)});
 console.log("i am here in index")
 
-app.use("/api/user",route);
-app.use("/api/user/book",authenticateToken,bookingRoute);
-app.use("/api/admin",authenticateToken,seatRoute);
-app.use("/api/user/mybookings",authenticateToken,seatStatusRoute);
-app.use("/api/cities",authenticateToken,cityRoute);
+
