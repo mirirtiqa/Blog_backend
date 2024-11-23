@@ -4,11 +4,23 @@ import Post from "../models/postModel.js"
 
 
 export const createPost = async(req,res)=>{
+    console.log("I am here in createPost")
 
     try{
-        const post = new Post(req.body)
-        const savedPost = await post.save()
-        res.status(200).json({message:"Post saved"});
+
+        const postData = req.body
+       
+
+        const augmentedPostData = new Post({
+            createdAt: postData.createdAt,
+            title: postData.title,
+            content: postData.content, 
+            comments: [],
+            likes: 0,
+        })
+
+        const savedPost = await augmentedPostData.save();
+        res.status(200).json(savedPost);
 
     }
     catch{
@@ -52,9 +64,9 @@ export const updatePostContent = async(req,res)=>{
    
 }
 
-export const fetchPosts = async(req,res)=>{
+export const fetchPost = async(req,res)=>{
     try{
-        const {postId} = req.params;
+        const {postId} = req.query;
         const post = await Post.findById(postId)
         if(!post){
             res.status(400).json({error:"invalid post id"});
