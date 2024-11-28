@@ -12,7 +12,6 @@ export const createPost = async(req,res)=>{
        
 
         const augmentedPostData = new Post({
-            createdAt: postData.createdAt,
             title: postData.title,
             content: postData.content, 
             comments: [],
@@ -66,34 +65,28 @@ export const updatePostContent = async(req,res)=>{
 
 export const fetchPost = async(req,res)=>{
     try{
-        const {postId} = req.query;
+        const {postId} = req.params;
         const post = await Post.findById(postId)
         if(!post){
-            res.status(400).json({error:"invalid post id"});
+           return res.status(400).json({error:"invalid post id"});
         }
 
-        res.status(200).json(post);
+        return res.status(200).json(post);
     }
     catch{
-        res.status(500).json({error:"Internal error"});
+        return res.status(500).json({error:"Internal error"});
     }
 }
 
 export const fetchPostTitles = async(req,res)=>{
+    console.log("you are fetching post titles")
     try{
        
-        const posts = await Post.find({},
-            { 
-            _id: 1, 
-            title: 1,  
-            createdAt: 0,
-            content: 0,
-            comments: 0
-            });
+        const posts = await Post.find({}, { _id: 1, title: 1 })
         if(!posts){
             res.status(400).json({error:"Could not retrieve posts"});
         }
-
+        console.log(posts)
         res.status(200).json(posts);
     }
     catch{

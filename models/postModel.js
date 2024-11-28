@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
-  createdAt: { type: Date, required: true },
+  createdAt: { type: Date },
   title: {type: String, required: true},
   content: {type: String, required: true}, 
   comments: [],

@@ -5,7 +5,7 @@ const postRoute = express.Router();
 postRoute.post("/create",createPost)
 postRoute.delete("/delete/:postId",deletePost)
 postRoute.get("/getTitles",fetchPostTitles)
-postRoute.get("/posts/getPost",fetchPost)
+postRoute.get("/getPost/:postId",fetchPost)
 
 
 export default postRoute;
